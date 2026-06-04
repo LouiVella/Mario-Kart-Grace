@@ -13,7 +13,7 @@
 #include <Network/Network.hpp>
 #include <Network/MatchCommand.hpp>
 
-
+extern bool ItemRainEnabled;
 namespace Pulsar {
 namespace KO {
 class Mgr;
@@ -34,6 +34,7 @@ enum Context {
     PULSAR_MODE_OTT,
     PULSAR_MODE_KO,
     PULSAR_KOFINAL,
+    PULSAR_ITEM_RAIN,
     PULSAR_CONTEXT_COUNT,
 };
 
@@ -49,7 +50,6 @@ private:
     void InitIO(IOType type) const;
     void InitCups(const ConfigFile& conf);
     void InitSettings(const u16* totalTrophyCount) const;
-    void UpdateContext();
 protected:
     //Virtual
     virtual void AfterInit() {};
@@ -91,6 +91,7 @@ public:
     EGG::ExpHeap* const heap; //0x4
     EGG::TaskThread* const taskThread; //0x8
     //Constants
+    void UpdateContext();
 
 private:
     char modFolderName[IOS::ipcMaxFileName + 1]; //0xC

@@ -135,6 +135,7 @@ void System::UpdateContext() {
     bool isFeather = this->info.HasFeather();
     bool isUMTs = this->info.HasUMTs();
     bool isMegaTC = this->info.HasMegaTC();
+    bool isItemRain = Settings::Mgr::sInstance->GetSettingValue(Settings::SETTINGSTYPE_HOST, SETTINGHOST_ITEM_RAIN) == 1;
     u32 newContext = 0;
     if(sceneId != SCENE_ID_GLOBE && controller->connectionState != RKNet::CONNECTIONSTATE_SHUTDOWN) {
         switch(controller->roomType) {
@@ -150,6 +151,7 @@ void System::UpdateContext() {
                 isKO = newContext & (1 << PULSAR_MODE_KO);
                 isOTT = newContext & (1 << PULSAR_MODE_OTT);
                 isMiiHeads = newContext & (1 << PULSAR_MIIHEADS);
+                isItemRain = newContext & (1 << PULSAR_ITEM_RAIN);
                 if(isOTT) {
                     isUMTs &= newContext & (1 << PULSAR_UMTS);
                     isFeather &= newContext & (1 << PULSAR_FEATHER);
@@ -170,7 +172,7 @@ void System::UpdateContext() {
 
     u32 context = (isCT << PULSAR_CT) | (isHAW << PULSAR_HAW) | (isMiiHeads << PULSAR_MIIHEADS);
     if(isCT) { //contexts that should only exist when CTs are on
-        context |= (is200 << PULSAR_200) | (isLegacy200 << PULSAR_LEGACY_200_MAX_SPEED) | (isFeather << PULSAR_FEATHER) | (isUMTs << PULSAR_UMTS) | (isMegaTC << PULSAR_MEGATC) | (isOTT << PULSAR_MODE_OTT) | (isKO << PULSAR_MODE_KO);
+        context |= (is200 << PULSAR_200) | (isLegacy200 << PULSAR_LEGACY_200_MAX_SPEED) | (isFeather << PULSAR_FEATHER) | (isUMTs << PULSAR_UMTS) | (isMegaTC << PULSAR_MEGATC) | (isOTT << PULSAR_MODE_OTT) | (isKO << PULSAR_MODE_KO) | (isItemRain << PULSAR_ITEM_RAIN);
     }
     this->context = context;
 
@@ -236,5 +238,18 @@ const char System::CommonAssets[] = "/CommonAssets.szs";
 const char System::breff[] = "/Effect/Pulsar.breff";
 const char System::breft[] = "/Effect/Pulsar.breft";
 const char* System::ttModeFolders[] ={ "150", "200", "150F", "200F" };
+
+void SetItemRainGameMode() {
+    System::sInstance->UpdateContext();
+    const SectionId sectionMode = SectionMgr::sInstance->curSection->sectionId;
+    if(sectionMode >= 0x3F && sectionMode <= 0x43) isOnline = false, System::sInstance->GetInfo().GetWiilinkRegion(), ItemRainEnabled = false;
+    if(RKNet::Controller::sInstance->roomType == RKNet::ROOMTYPE_NONE) return;
+    if(sectionMode >= 0x55 && sectionMode <= 0x75) isOnline = true;
+    if(!isOnline) return;
+    ItemRainEnabled = false;
+    if(System::sInstance->IsContext(PULSAR_ITEM_RAIN) && (RKNet::Controller::sInstance->roomType == RKNet::ROOMTYPE_FROOM_HOST || RKNet::Controller::sInstance->roomType == RKNet::ROOMTYPE_FROOM_NONHOST)) ItemRainEnabled = true;
+    if(System::sInstance->GetInfo().GetWiilinkRegion() && (RKNet::Controller::sInstance->roomType == RKNet::ROOMTYPE_VS_REGIONAL || RKNet::Controller::sInstance->roomType == RKNet::ROOMTYPE_VS_WW)) ItemRainEnabled = true;
+}
+static PageLoadHook ItemRainUpdater(SetItemRainGameMode);
 
 }//namespace Pulsar

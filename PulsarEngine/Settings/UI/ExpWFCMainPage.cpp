@@ -56,11 +56,12 @@ ExpWFCModeSel::ExpWFCModeSel() : lastClickedButton(0) {
 
 void ExpWFCModeSel::InitOTTButton(ExpWFCModeSel& self) {
     self.InitControlGroup(6);
-    self.AddControl(5, self.ottButton, 0);
-    self.ottButton.Load(UI::buttonFolder, "PULOTTButton", "PULOTTButton", 1, 0, 0);
-    self.ottButton.buttonId = ottButtonId;
-    self.ottButton.SetOnClickHandler(self.onModeButtonClickHandler, 0);
-    self.ottButton.SetOnSelectHandler(self.onButtonSelectHandler);
+    self.AddControl(5, self.itemRainButton, 0);
+    self.itemRainButton.Load(UI::buttonFolder, "PULOTTButton", "PULOTTButton", 1, 0, 0);
+    self.itemRainButton.buttonId = itemRainButtonId;
+    self.itemRainButton.SetMessage(BMG_TT_MODE_BOTTOM_SINGLE - 0x100 + 2);
+    self.itemRainButton.SetOnClickHandler(self.onModeButtonClickHandler, 0);
+    self.itemRainButton.SetOnSelectHandler(self.onButtonSelectHandler);
 
     Text::Info info;
     RKSYS::Mgr* rksysMgr = RKSYS::Mgr::sInstance;
@@ -70,7 +71,7 @@ void ExpWFCModeSel::InitOTTButton(ExpWFCModeSel& self) {
         vr = license.vr.points;
     }
     info.intToPass[0] = vr;
-    self.ottButton.SetTextBoxMessage("go", BMG_RATING, &info);
+    self.itemRainButton.SetTextBoxMessage("go", BMG_RATING, &info);
 }
 kmCall(0x8064c294, ExpWFCModeSel::InitOTTButton);
 
@@ -80,8 +81,8 @@ void ExpWFCModeSel::OnActivatePatch() {
     register Pages::GlobeSearch* search;
     asm(mr search, r30;);
     const bool isHidden = search->searchType == 1 ? false : true; //make the button visible if continental was clicked
-    page->ottButton.isHidden = isHidden;
-    page->ottButton.manipulator.inaccessible = isHidden;
+    page->itemRainButton.isHidden = isHidden;
+    page->itemRainButton.manipulator.inaccessible = isHidden;
     page->nextPage = PAGE_NONE;
     PushButton* button = &page->vsButton;
     u32 bmgId = UI::BMG_RACE_WITH11P;
@@ -90,10 +91,10 @@ void ExpWFCModeSel::OnActivatePatch() {
             button = &page->battleButton;
             bmgId = UI::BMG_BATTLE_WITH6P;
             break;
-        case ottButtonId:
+        case itemRainButtonId:
             if(!isHidden) {
-                button = &page->ottButton;
-                bmgId = UI::BMG_OTT_WW_BOTTOM;
+                button = &page->itemRainButton;
+                bmgId = UI::BMG_TT_MODE_BOTTOM_SINGLE + 5;
             }
             break;
     }
@@ -103,8 +104,8 @@ void ExpWFCModeSel::OnActivatePatch() {
 kmCall(0x8064c5f0, ExpWFCModeSel::OnActivatePatch);
 
 void ExpWFCModeSel::OnModeButtonSelect(PushButton& modeButton, u32 hudSlotId) {
-    if(modeButton.buttonId == ottButtonId) {
-        this->bottomText.SetMessage(BMG_OTT_WW_BOTTOM);
+    if(modeButton.buttonId == itemRainButtonId) {
+        this->bottomText.SetMessage(BMG_TT_MODE_BOTTOM_SINGLE + 5);
     }
     else WFCModeSelect::OnModeButtonSelect(modeButton, hudSlotId);
 }
@@ -112,12 +113,12 @@ void ExpWFCModeSel::OnModeButtonSelect(PushButton& modeButton, u32 hudSlotId) {
 void ExpWFCModeSel::OnModeButtonClick(PushButton& modeButton, u32 hudSlotId) {
     const u32 prevId = modeButton.buttonId;
     this->lastClickedButton = prevId;
-    bool isOTT = false;
-    if(prevId == ottButtonId) {
-        isOTT = true;
-        modeButton.buttonId = 1;
+    if(prevId == itemRainButtonId) {
+        System::sInstance->GetInfo().GetWiilinkRegion();
     }
-    System::sInstance->netMgr.ownStatusData = isOTT;
+    else {
+        System::sInstance->GetInfo().GetWiilinkRegion();
+    }
     WFCModeSelect::OnModeButtonClick(modeButton, hudSlotId);
     modeButton.buttonId = prevId;
 }

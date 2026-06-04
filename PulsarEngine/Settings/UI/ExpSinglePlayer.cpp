@@ -144,25 +144,10 @@ void OnButtonClick(Pages::SinglePlayer* page, PushButton& button, u32 hudSlotId)
         return;
     }
 
-    if(id == 1 || id > 3) button.buttonId = 1;
+    ItemRainEnabled = false;
+    if(id == 5) button.buttonId = 2, ItemRainEnabled = true;
     page->Pages::SinglePlayer::OnButtonClick(button, hudSlotId);
     button.buttonId = id;
-    System* system = System::sInstance;
-    if(id == 1 || id > 3) {
-        TTMode mode = TTMODE_150;
-        switch(page->externControlCount) {
-            case(6):
-                if(id > 3) {
-                    if(system->GetInfo().Has200cc()) mode = TTMODE_200;
-                    else mode = TTMODE_150_FEATHER;
-                }
-                break;
-            case(8):
-                if(id > 3) mode = (TTMode)(id - 3);
-                break;
-        }
-        system->ttMode = mode;
-        SetCC();
     }
 }
 kmWritePointer(0x808BBED0, OnButtonClick);

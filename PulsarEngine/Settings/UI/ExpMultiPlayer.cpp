@@ -47,7 +47,9 @@ void OnButtonClick(Pages::MultiPlayer* page, PushButton& button, u32 hudSlotId) 
         page->EndStateAnimated(0, button.GetAnimationFrameSize());
         return;
     }
+    if(id == 2) button.buttonId = 0, ItemRainEnabled = true;
     page->Pages::MultiPlayer::OnButtonClick(button, hudSlotId);
+    button.buttonId = id;
 }
 kmWritePointer(0x808BC638, OnButtonClick);
 
