@@ -2019,15 +2019,4 @@ RespawnImpl__Q27Objects11ItemDropperFv = 0x8076ed70
 
 # frameskip
 beginFrame = 0x8020fe24
-<<<<<<< HEAD
 Update__20GameScreenEffectsMgrFv = 0x8054f1b0
-=======
-Update__20GameScreenEffectsMgrFv = 0x8054f1b0
-
-#Item Rain Symbols
-GetPosition__Q24Kart4LinkCFv = 0x8059020c
-DisappearDueToExcess__Q24Item3ObjFb = 0x807a6c14
-GetMovement__Q24Kart4LinkFv = 0x8059077c
-CreateItemDirect__Q24Item7ManagerF9ItemObjIdPC4Vec3P4Vec3Ui = 0x80799fbc
-ItemRainOnlineFixHook = 0x8000120A
->>>>>>> 7e532bb (Updated again just in case it uploads properly)

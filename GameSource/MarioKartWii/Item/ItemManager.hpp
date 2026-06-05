@@ -27,10 +27,6 @@ public:
     void Init(); //80799794
     void Update(); //80799850
     void CreateItemDirect(); //80799fbc
-<<<<<<< HEAD
-=======
-    void CreateItemDirect(ItemObjId item, const Vec3* pos, Vec3* direction, u32 PlayerId); //80799fbc
->>>>>>> 7e532bb (Updated again just in case it uploads properly)
     void GenerateItemDirect(); //8079a12c
     void SpawnCloudForLocal(u8 playerId); //8079a298
     void SpawnCloudForRemote(u8 playerId); //8079a3b8 called online when someone gets a TC, sends a USE TC EVENT
