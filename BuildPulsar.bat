@@ -56,4 +56,9 @@ if %ErrorLevel% equ 0 if NOT "!RIIVO!" == "" (
 )
 
 :end
+<<<<<<< HEAD
 ENDLOCAL
+=======
+ENDLOCAL
+pause
+>>>>>>> 7e532bb (Updated again just in case it uploads properly)
