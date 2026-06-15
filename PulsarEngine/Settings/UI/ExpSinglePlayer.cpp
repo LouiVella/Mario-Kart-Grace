@@ -148,7 +148,7 @@ void OnButtonClick(Pages::SinglePlayer* page, PushButton& button, u32 hudSlotId)
     if(id == 5) button.buttonId = 2, ItemRainEnabled = true;
     page->Pages::SinglePlayer::OnButtonClick(button, hudSlotId);
     button.buttonId = id;
-    }
+
 }
 kmWritePointer(0x808BBED0, OnButtonClick);
 }//namespace UI
