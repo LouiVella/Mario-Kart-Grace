@@ -239,6 +239,7 @@ const char System::breff[] = "/Effect/Pulsar.breff";
 const char System::breft[] = "/Effect/Pulsar.breft";
 const char* System::ttModeFolders[] ={ "150", "200", "150F", "200F" };
 
+bool isOnline;
 void SetItemRainGameMode() {
     System::sInstance->UpdateContext();
     const SectionId sectionMode = SectionMgr::sInstance->curSection->sectionId;
