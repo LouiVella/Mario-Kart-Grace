@@ -234,10 +234,8 @@ public:
 
 class PageLoadHook : public DoFuncsHook {
     static DoFuncsHook* pageLoadHooks;
-
-   public:
-    template <typename F>
-    PageLoadHook(F f) : DoFuncsHook(f, &pageLoadHooks) {}
+public:
+    PageLoadHook(Func& f) : DoFuncsHook(f, &pageLoadHooks) {}
     static void Exec() { DoFuncsHook::Exec(pageLoadHooks); }
 };
 
