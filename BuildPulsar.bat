@@ -57,3 +57,4 @@ if %ErrorLevel% equ 0 if NOT "!RIIVO!" == "" (
 
 :end
 ENDLOCAL
+pause
