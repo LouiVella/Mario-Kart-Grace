@@ -124,6 +124,8 @@ void System::UpdateContext() {
     bool isKOFinal = settings.GetSettingValue(Settings::SETTINGSTYPE_KO, SETTINGKO_FINAL) == KOSETTING_FINAL_ALWAYS;
     bool isOTT = false;
     bool isMiiHeads = settings.GetSettingValue(Settings::SETTINGSTYPE_RACE, SETTINGRACE_RADIO_MII);
+    bool isRegs = false;
+    bool isRegsOnly = false;
 
     const RKNet::Controller* controller = RKNet::Controller::sInstance;
     const GameMode mode = racedataSettings.gamemode;
@@ -151,6 +153,8 @@ void System::UpdateContext() {
                 isKO = newContext & (1 << PULSAR_MODE_KO);
                 isOTT = newContext & (1 << PULSAR_MODE_OTT);
                 isMiiHeads = newContext & (1 << PULSAR_MIIHEADS);
+                isRegs = newContext & (1 << PULSAR_REGS);
+                isRegsOnly = newContext & (1 << PULSAR_REGSONLY);
                 isItemRain = newContext & (1 << PULSAR_ITEM_RAIN);
                 if(isOTT) {
                     isUMTs &= newContext & (1 << PULSAR_UMTS);
@@ -170,7 +174,7 @@ void System::UpdateContext() {
     }
     this->netMgr.hostContext = newContext;
 
-    u32 context = (isCT << PULSAR_CT) | (isHAW << PULSAR_HAW) | (isMiiHeads << PULSAR_MIIHEADS);
+    u32 context = (isCT << PULSAR_CT) | (isHAW << PULSAR_HAW) | (isMiiHeads << PULSAR_MIIHEADS) | (isRegs << PULSAR_REGS) | (isRegsOnly << PULSAR_REGSONLY);
     if(isCT) { //contexts that should only exist when CTs are on
         context |= (is200 << PULSAR_200) | (isLegacy200 << PULSAR_LEGACY_200_MAX_SPEED) | (isFeather << PULSAR_FEATHER) | (isUMTs << PULSAR_UMTS) | (isMegaTC << PULSAR_MEGATC) | (isOTT << PULSAR_MODE_OTT) | (isKO << PULSAR_MODE_KO) | (isItemRain << PULSAR_ITEM_RAIN);
     }
