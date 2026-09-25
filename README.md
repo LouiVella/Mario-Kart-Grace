@@ -1,0 +1,82 @@
+# Pulladium
+
+Pulladium is a community maintained fork of Pulsar, a Mario Kart Wii Kamek-Based engine to create CT distributions. It comes with its own [software](../main/PulsarPackCreator/Executable) to aid in building custom distributions, and multiple quality of life features.
+
+The Pulladium fork exists to continue development of Pulsar, and to provide new packs a stable foundation upon which to develop. In its early stages this means more of a focus on bug fixes and quality of life with the pack creator. Later versions will include more engine features. Much is planned!
+
+## New features
+
+- WiiLink WFC support (thanks mkwcat!)
+- Local multiplayer settings button (thanks Toadette Hack Fan!)
+
+## Fixes from original Pulsar
+
+- Toadette Hack Fan: Fixed issues with tracks containing LEX files causing them to not work properly
+- ZPL: Fixed many bugs and stability issues with KO mode
+- BlueLeopard: Fixed an issue causing 200cc's max speed to be higher than intended. (This behaviour can be reverted to prevent ghost desyncs if preferred)
+- ym: Fixed an issue where the race count in a friend room wouldn't be updated
+- ZPL: Fixed the Mii head setting not working as intended
+- Saucy: Fixed Mega TC showing in the roulette in vanilla worldwides
+- Blazico: Fixed speedometer thousandths digit calculation
+- Saucy: Fixed the vanilla track order when playing worldwides
+- Toadette Hack Fan: Significantly improved NTSC-K support
+- Erythtini: Fixed ObjFlow and GeoHitTables not loading from track szs ./Common/ folder, as it was in LE-CODE (files on .szs root will take priority)
+- Saucy: Fixed an issue where crates do not spawn in the correct place due to overlapping track position
+
+## Developer additions
+
+- Improved versions.txt (thanks Toadette Hack Fan!)
+- Expanded symbols.txt (thanks Toadette Hack Fan!)
+- [Completely rewritten build script](../main/BuildPulsar.py) with significant compile time improvements over the old .bat
+
+## Base Pulsar features
+
+Core:
+- Cup select expansion
+- Settings that are directly modifiable in-game, including in friend rooms
+- Up to four time-trial modes (150cc, 150cc feather, 200cc and 200cc feather)
+- Ghost saving on all tracks and all four modes (on the SD on console and on the NAND on dolphin)
+- Support for staff ghosts should the creator make them
+- KO mode
+- OnlineTT mode
+- LEX support
+- [XPF support](https://github.com/Gabriela-Orzechowska/LE-CODE-XPF) (from Gabriela)
+- [USB GCN Support](https://github.com/Gabriela-Orzechowska/MKW-Cosmos/blob/main/code/System/WUP028.hpp) (from Gabriela)
+
+
+UI:
+- A speedometer that is flush with the game UI
+- In-game crediting of track authors
+- Between Races Change Combo, which has its own UI along with a randomize button
+- Team selection, where the host of a room can manually set the team of each player.
+- Boot in Wiilink WFC directly
+- Better ghost replay which allows multi ghost watching and point-of-view switching
+
+
+Sound:
+- BRSAR entry size patch to make all brstms loop normally
+- Conditionnal channel switches; the game will only switch channel (on Koopa Cape for example) if the currently playing brstm has at least as many channels as the brsar entry requires.
+- BRSTM Volume, much like it works in CTGP by editing byte 0x3F of any BRSTM
+- BRSTM expansion
+- Optional Music speedUp on final lap (the music is sped up when you cross the line instead of switching to the fast lap version)
+
+
+Gameplay:
+- 200cc support
+- Ultra Mini-Turbos
+- Mega TCs
+- CLF78 and stebler's feather
+- Support for custom CC distribution
+- COOB (both kHacker35000vr's and Riidefi's versions)
+- Team VS has been edited to play exactly as normal VS does, while keeping the coloured minimap icons and the scoreboard after races.
+
+Network:
+- Rooms that can only be joined by people on the same pack (including the same version)
+- A much faster Host Always Wins where the host selects the next track directly in the race.
+- Worldwides that work as on vanilla
+- The features that impact gameplay the most (200cc, UMTs, feather, mega TCs) can be turned off in the software when making your distribution. Pulsar can also be used as a base to add your own features. CTTP is such an example. The software only outputs the tracks and a config file, but the code binaries can be modified to fit your needs.
+
+
+Credits:
+- Treeki for [Kamek](https://github.com/Treeki/Kamek/tree/master). The engine has been ever so slightly modified to create a new output format which combines the usual 4 binaries. 
+- Gabriela for XPF support and USB GCN support from [Aurora](https://github.com/Gabriela-Orzechowska/MKW-Aurora). An exception from the GPLv3 licensing was provided, allowing these files to be used in this project.
