@@ -598,6 +598,9 @@ Normalize__Q23EGG8Vector3fFv = 0x80243b6c
 #Scn
 CreatePath__Q23EGG11ScnRendererFUiPQ23EGG9Allocator = 0x8023bd38
 
+#ScnMgr
+AppendScreenSpecificModelDirector__6ScnMgrFP13ModelDirector = 0x805635cc
+
 #TaskThread
 Create__Q23EGG10TaskThreadFiiUiPQ23EGG4Heap = 0x802428e8
 Request__Q23EGG10TaskThreadFPFPv_vPvUi = 0x80242c18
@@ -645,6 +648,7 @@ LoadCourseArchive__10ArchiveMgrF8CourseIdPQ23EGG4Heapb = 0x80540760
 GetFile__10ArchiveMgrCF13ArchiveSourcePCcPUi = 0x805411fc
 RequestLoadCourseAsync__10ArchiveMgrF8CourseId = 0x805419ac
 sInstance__10ArchiveMgr = 0x809bd738
+GetArchive__10ArchiveMgrCF13ArchiveSourceUi = 0x80541614
 
 ##SCENE
 GetCurrent__9GameSceneFv = 0x8051bed0
@@ -782,6 +786,9 @@ BindBRRES__13ModelDirectorFRQ34nw4r3g3d7ResFile13ArchiveSourcePCc = 0x8055b618
 LoadNoAnm__13ModelDirectorFPCcRQ34nw4r3g3d7ResFileP5Light = 0x8055c2b8
 LinkAnimation__13ModelDirectorFUiRQ34nw4r3g3d7ResFilePCc7AnmTypebPCc13ArchiveSourceUc = 0x8055ddec
 UpdateDrawPriority__13ModelDirectorFUi = 0x8055f4c4
+EnableScreen__13ModelDirectorFUi = 0x8055cce0
+DisableScreen__13ModelDirectorFUi = 0x8055ccf8
+GetScnManager__13ModelDirectorCFv = 0x8055f2c4
 
 #MHModelDirector
 matNames__15MHModelDirector = 0x808d1860
@@ -864,6 +871,7 @@ unknown_70__4Kart = 0x808cb550
 #KartStatus
 UpdateFromInput__Q24Kart6StatusFv = 0x8059487c
 ApplyStartBoost__Q24Kart6StatusFi = 0x80595af8
+UpdateCollisions__Q24Kart6StatusFv = 0x80594bd4
 
 #KartPhyiscsHolder
 Update__Q24Kart18WheelPhysicsHolderFRC4Vec3RC5Mtx34f = 0x8059a278
@@ -1819,6 +1827,9 @@ Init__9ObjectKCLFv = 0x8081a79c
 RegisterEntity__9ObjectKCLFf = 0x8081a85c
 UpdateModel__9ObjectKCLFv = 0x8081a8d0
 
+#ObjectsKCLMgr
+Update__13ObjectsKCLMgrFv = 0x8081b618
+
 #ExternKCL
 GetRawKMP__Q23KMP7ManagerF13ArchiveSourcePCc = 0x80512c10
 CalcCoordinates_0Indexed__Q23KMP13Holder<4KTPT>FR4Vec3R4Vec3UiUi = 0x80514368
@@ -2016,6 +2027,11 @@ fun_playSound = 0x8071497C
 ptr_menuPageOrSomething = 0x809C2850
 
 RespawnImpl__Q27Objects11ItemDropperFv = 0x8076ed70
+Update__Q22AI20EnemyRouteControllerFRC16KartAIController = 0x8073b690
+Update__Q24Item5PointFRC4Vec3 = 0x807b8a9c
+Update2__Q24Item5PointFRC4Vec3 = 0x807b8f30
+CalcNextPoint__4ItemFRCQ24Item5PointRQ24Item5PointUcb = 0x807b91e4
+Update__Q24Kart6KillerFv = 0x8059bc44
 
 # frameskip
 beginFrame = 0x8020fe24
